@@ -8,23 +8,26 @@ function App() {
 
   const [newsletterChecked, setNewsletterChecked] = useState(false);
   const [recapChecked, setRecapChecked] = useState(false);
-  const [bothChecked, setBothChecked] = useState(false);
+  const [allChecked, setAllChecked] = useState(false);
+  const [eventsChecked, setEventsChecked] = useState(false);
 
   const checkboxHandler = (label) => {
     const checkboxCypher = {
       "Newsletter": {val: newsletterChecked, changeFunc: setNewsletterChecked},
       "Re/Cap": {val: recapChecked, changeFunc: setRecapChecked},
-      "All of the above": {val: bothChecked, changeFunc: setBothChecked},
+      "All of the above": {val: allChecked, changeFunc: setAllChecked},
+      "Events": {val: eventsChecked, changeFunc: setEventsChecked},
     }
     let activeCheckbox = checkboxCypher[label];
     const {val, changeFunc} = activeCheckbox;
     if (label === "Re/Cap") {
-      setBothChecked(false);
-      setNewsletterChecked(false);
+      setAllChecked(false);
     } else if (label === "Newsletter") {
-      setRecapChecked(false);
-      setBothChecked(false);
-    } else {
+      setAllChecked(false);
+    } else if (label === "Events") {
+      setAllChecked(false);
+    } else if (label === "All of the above") {
+      setEventsChecked(false);
       setRecapChecked(false);
       setNewsletterChecked(false);
     }
@@ -40,7 +43,8 @@ function App() {
     const checkboxes = [
       {label: "Newsletter", description: "This includes our weekly newsletter, events, and podcast updates.", checked: newsletterChecked},
       {label: "Re/Cap", description: "This includes our weekly Re/Cap. It goes over innovations in the built world in a casual, humored, technical way and we highlight a historical error that could have been avoided or fixed with current technology.", checked: recapChecked},
-      {label: "All of the above", description: "", checked: bothChecked}
+      {label: "Events", description: "Stay in the loop for all our events and updates to the events.", checked: eventsChecked},
+      {label: "All of the above", description: "", checked: allChecked},
     ];
     return checkboxes.map((info, i) => <Checkbox handleClick={checkboxHandler} key={`${i}-${info.label}`} info={info} />)
   }
@@ -49,13 +53,11 @@ function App() {
     <div className="text-white w-full md:h-screen flex flex-col items-center justify-center relative bg-gradient-to-tl from-rcn-blue to-black">
       <img src="/logo-white.png" className="w-60 h-40 object-cover z-10" />
       <div className="flex flex-col items-center justify-center w-3/4 md:w-1/2 gap-4 z-10">
-        <h2 className="text-3xl font-bold self-start">Help Us Stay Connected the Right Way</h2>
-        <p className="">We're updating our email list and want to make sure you're only getting the updates you care about.
-Use the form below to let us know what topics you're interested in—like our newsletter, re/cap, or if you want all the updates.
-This helps us send you relevant content and cut down on the noise. Thanks for staying connected!</p>
+        <h2 className="text-3xl font-bold self-start">Let's Stay Connected</h2>
+        <p className="">We're updating our email list and want to make sure you're only getting the information you care about. Use the form below to let us know what topics you're interested in—like our newsletter, re/cap, or if you want all the updates. This helps us send you relevant content and cut down on the noise. Thanks for staying connected!</p>
         <form action={handleFormSubmit()} className="w-full" >
           <div className="w-full bg-gradient-to-tl from-white/20 to-rcn-blue/20 p-4 rounded flex flex-col gap-4">
-            <h4 className="">Check the relevant box depending on which list you want to be a part of.</h4>
+            <h4 className="">Check the box for the lists you'd like to join!</h4>
             <div className="flex flex-col gap-2">
               {renderCheckboxes()}
             </div>
