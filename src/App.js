@@ -105,8 +105,11 @@ function App() {
   }
 
   const displaySuccess = () => {
-    return showSuccess === true && (
-      <div className={`absolute w-full h-full transition-all duration-500 bg-rcn-blue ${showSuccess === true ? " bg-opacity-100" : "bg-opacity-0"}`}></div>
+    return (
+      <div className={`absolute w-full h-full transition-all duration-500 bg-rcn-blue flex flex-col items-center justify-center px-8 gap-8`}>
+        <h3 className="text-4xl text-white font-bold">Thank You!</h3>
+        <p className="text-white text-xl">Thank you for taking the time to select the list(s) that you would like to receive emails for.</p>
+      </div>
     )
   }
 
