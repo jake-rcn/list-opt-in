@@ -3,6 +3,7 @@ import './App.css';
 import { useState } from 'react';
 
 import Checkbox from './components/Checkbox';
+import TwoSpokes from './components/loaders/twoSpokes';
 
 function App() {
 
@@ -10,7 +11,7 @@ function App() {
   const [recapChecked, setRecapChecked] = useState(false);
   const [allChecked, setAllChecked] = useState(false);
   const [eventsChecked, setEventsChecked] = useState(false);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   const checkboxHandler = (label) => {
     const checkboxCypher = {
@@ -58,25 +59,7 @@ function App() {
 
   const presentButtonText = () => {
     return loading === true ?
-    (
-      <div className="relative h-9 w-9 flex flex-col items-center justify-between border-2 border-neutral-white rounded-full transition-all duration-1000 animate-spin bg-white/20">
-        {/* <div className="absolute w-8 h-8 rounded-full transition-all duration-300 animate-ping border-2 border-neutral-white"></div> */}
-        {/* <div className="absolute bg-neutral-white top-1 left-3 w-1 h-3 rounded-t"></div>
-        <div className="absolute bg-neutral-white top-1/2 right-0 h-1 w-3 rounded-r"></div>
-        <div className="absolute bg-neutral-white bottom-1 left-1/2 h-3 w-1 rounded-b"></div>
-        <div className="absolute bg-neutral-white top-1/2 left-0 w-3 h-1 rounded-l"></div> */}
-        <div className="w-full flex items-center justify-center">
-          <div className="bg-neutral-white h-3 w-1 rounded-t"></div>
-        </div>
-        <div className="w-full flex flex-row justify-between">
-          <div className="bg-neutral-white w-3 h-1 rounded-l"></div>
-          <div className="bg-neutral-white w-3 h-1 rounded-r"></div>
-        </div>
-        <div className="w-full flex items-center justify-center">
-          <div className="bg-neutral-white h-3 w-1 rounded-b"></div>
-        </div>
-      </div>
-    )
+      <TwoSpokes />
     : 
     (
       "Submit"
