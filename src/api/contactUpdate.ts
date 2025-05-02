@@ -1,5 +1,6 @@
 import axios from "axios";
-import crypto from 'crypto-browserify'
+import sparkMd5 from "spark-md5";
+
 
 interface CheckboxData {
     newsletter: boolean,
@@ -17,7 +18,8 @@ const serverPrefix = process.env.MAILCHIMP_SERVER_PREFIX;
 const listId = process.env.MAILCHIMP_LIST_ID;
 
 const getSubscriberHash = (email:string) => {
-    return createHash('md5').update(email.toLowerCase()).digest('hex');
+    const trimmed = email.toLowerCase().trim();
+    return sparkMd5.hash(trimmed);
 }
 
 const configureTags = async (checkboxData: CheckboxData) : Promise<String[]> => {
