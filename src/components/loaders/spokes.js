@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-const TwoSpokes = () => {
+const Spokes = () => {
 
     const [show, setShow]  = useState(false);
 
@@ -31,4 +31,4 @@ const TwoSpokes = () => {
     )
 }
 
-export default TwoSpokes;
+export default Spokes;
