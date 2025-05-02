@@ -47,6 +47,7 @@ function App() {
       console.error("Email parameter must be present");
       setLoading(false);
       setFormError("There was an error. Please retry the link from your email.");
+      return false;
     }
   }
 
@@ -61,6 +62,9 @@ function App() {
       events: allChecked === true ? true : eventsChecked
     }
     const emailParam = await getEmailParam();
+    const configuredPayload = {
+
+    }
   }
 
   const renderCheckboxes = () => {
