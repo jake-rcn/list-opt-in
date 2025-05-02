@@ -1,9 +1,11 @@
-import logo from './logo.svg';
+
 import './App.css';
 import { useState } from 'react';
 
 import Checkbox from './components/Checkbox';
 import Spokes from './components/loaders/spokes';
+
+import contactUpdate from './api/contactUpdate.ts';
 
 function App() {
 
@@ -13,6 +15,8 @@ function App() {
   const [eventsChecked, setEventsChecked] = useState(false);
   const [loading, setLoading] = useState(false);
   const [formError, setFormError] = useState("");
+  const [showError, setShowError] = useState(false);
+  const [showSuccess, setShowSuccess] = useState(false);
 
   const checkboxHandler = (label) => {
     const checkboxCypher = {
@@ -62,8 +66,18 @@ function App() {
       events: allChecked === true ? true : eventsChecked
     }
     const emailParam = await getEmailParam();
-    const configuredPayload = {
-
+    if (emailParam !== false) {
+      const configuredPayload = {
+        email: emailParam,
+        lists: checkboxData
+      }
+      const updated = await contactUpdate(configuredPayload);
+      if (updated === true) {
+        setShowSuccess(true);
+      } else {
+        setShowError(true);  
+      }
+      setLoading(false);
     }
   }
 
@@ -90,6 +104,12 @@ function App() {
     return formError !== "" && <small className="text-red-500 font-sans-serif font-bold text-left">{formError}</small>
   }
 
+  const displaySuccess = () => {
+    return showSuccess === true && (
+      <div className={`absolute w-full h-full transition-all duration-500 bg-rcn-blue ${showSuccess === true ? " bg-opacity-100" : "bg-opacity-0"}`}></div>
+    )
+  }
+
   return (
     <div className="text-white w-full md:h-screen flex flex-col items-center justify-center relative bg-gradient-to-tl from-cloudline to-deep-wave">
       <img src="/logo-black.png" className="w-60 h-40 object-cover z-10" />
@@ -97,7 +117,8 @@ function App() {
         <h2 className="text-3xl font-bold self-start">Let's Stay Connected</h2>
         <p className="">We're updating our email list and want to make sure you're only getting the information you care about. Use the form below to let us know what topics you're interested in—like our newsletter, re/cap, or if you want all the updates. This helps us send you relevant content and cut down on the noise. Thanks for staying connected!</p>
         {displayError()}
-        <form action={handleFormSubmit} className="w-full" >
+        <form action={handleFormSubmit} className="w-full relative" >
+          {displaySuccess()}
           <div className="w-full bg-white/10 p-4 rounded flex flex-col gap-4">
             <h4 className="">Check the box for the lists you'd like to join!</h4>
             <div className="flex flex-col gap-2">

@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@mailchimp/mailchimp_marketing": "^3.0.80",
     "@mailchimp/mailchimp_transactional": "^1.0.59",
     "@testing-library/dom": "^10.4.0",
     "@testing-library/jest-dom": "^6.6.3",
@@ -10,6 +11,8 @@
     "@testing-library/user-event": "^13.5.0",
     "autoprefixer": "^10.4.21",
     "axios": "^1.9.0",
+    "crypto": "^1.0.1",
+    "crypto-browserify": "^3.12.1",
     "dotenv": "^16.5.0",
     "postcss": "^8.5.3",
     "react": "^19.1.0",
@@ -43,6 +46,7 @@
     ]
   },
   "devDependencies": {
+    "@types/node": "^22.15.3",
     "tailwindcss": "^3.4.17"
   }
 }
