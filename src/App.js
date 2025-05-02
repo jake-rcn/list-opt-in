@@ -11,7 +11,7 @@ function App() {
   const [recapChecked, setRecapChecked] = useState(false);
   const [allChecked, setAllChecked] = useState(false);
   const [eventsChecked, setEventsChecked] = useState(false);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
 
   const checkboxHandler = (label) => {
     const checkboxCypher = {
