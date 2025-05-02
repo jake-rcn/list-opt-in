@@ -106,7 +106,7 @@ function App() {
 
   const displaySuccess = () => {
     return (
-      <div className={`absolute w-full h-full transition-all duration-500 bg-rcn-blue flex flex-col items-center justify-center px-8 gap-8`}>
+      <div className={`absolute w-full h-full transition-all duration-500 bg-rcn-blue flex flex-col items-center justify-center px-8 gap-8 ${showSuccess === true ? 'visible': 'hidden'}`}>
         <h3 className="text-4xl text-white font-bold">Thank You!</h3>
         <p className="text-white text-xl">Thank you for taking the time to select the list(s) that you would like to receive emails for.</p>
       </div>
