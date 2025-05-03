@@ -10,7 +10,7 @@ interface CheckboxData {
 
 interface User {
     email: string,
-    checkboxData: CheckboxData
+    lists: CheckboxData
 }
 
 const apiKey = process.env.MAILCHIMP_API_KEY;
@@ -23,6 +23,7 @@ const getSubscriberHash = (email:string) => {
 }
 
 const configureTags = async (checkboxData: CheckboxData) : Promise<String[]> => {
+    console.log("Check box data in configure tags", checkboxData)
     let keys = Object.keys(checkboxData);
     var tags: String[] = [];
     keys.forEach(key => {
@@ -35,10 +36,11 @@ const configureTags = async (checkboxData: CheckboxData) : Promise<String[]> => 
 
 const contactUpdate = async (userInfo: User) : Promise<Boolean> => {
 
-    const {email, checkboxData} = userInfo;
+    const {email, lists} = userInfo;
 
     const subscriberHash = getSubscriberHash(email);
-    const tags = await configureTags(checkboxData)
+    console.log("checkbox data before configure tags", lists)
+    const tags = await configureTags(lists)
     try {
         const url = `https://${serverPrefix}.api.mailchimp.com/3.0/lists/${listId}/members/${subscriberHash}`;
 
