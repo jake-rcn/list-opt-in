@@ -34,13 +34,39 @@ const configureTags = async (checkboxData: CheckboxData) : Promise<String[]> => 
     return tags;
 }
 
-const contactUpdate = async (userInfo: User) : Promise<Boolean> => {
+const contactUpdate = async (userInfo: User) : Promise<{success: boolean,  message: string}> => {
 
     const {email, lists} = userInfo;
+    const tags = await configureTags(lists)
+    try {
+        // send data to backend
+        const userData = {
+            email,
+            tags
+        }
+
+        const url = ``;
+        const response = await axios.post(url, userData, {
+            headers: {
+                'Content-Type': 'application/json'
+            },
+        })
+        if (response.status === 200) {
+            return response.data;
+        } else {
+            throw(Error(""))
+        }
+    } catch (error) {
+        // send back boolean and errorMessage from server
+        let data = {
+            success: false,
+            message: error
+        }
+        return data;
+    }
 
     const subscriberHash = getSubscriberHash(email);
     console.log("checkbox data before configure tags", lists)
-    const tags = await configureTags(lists)
     try {
         const url = `https://${serverPrefix}.api.mailchimp.com/3.0/lists/${listId}/members/${subscriberHash}`;
 
