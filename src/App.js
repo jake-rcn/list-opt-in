@@ -1,11 +1,12 @@
 
 import './App.css';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion } from 'motion/react';
 
 import Checkbox from './components/Checkbox';
 import Spokes from './components/loaders/spokes';
 import Success from './components/formMessages/success.js';
+import UserEmail from './components/formComponents/UserEmail.js';
 
 import contactUpdate from './api/contactUpdate.ts';
 
@@ -19,6 +20,7 @@ function App() {
   const [formError, setFormError] = useState("");
   const [showError, setShowError] = useState(false);
   const [showSuccess, setShowSuccess] = useState(false);
+  const [email, setEmail] = useState("")
 
   const checkboxHandler = (label) => {
     const checkboxCypher = {
@@ -48,12 +50,7 @@ function App() {
     const emailParam = searchParams.get('email');
     if (emailParam) {
       console.log(emailParam);
-      return emailParam
-    } else {
-      console.error("Email parameter must be present");
-      setLoading(false);
-      setFormError("There was an error. Please retry the link from your email.");
-      return false;
+      setEmail(emailParam)
     }
   }
 
@@ -109,6 +106,14 @@ function App() {
     return showError === true && <small className="text-red-500 font-sans-serif font-bold text-left">{formError}</small>
   }
 
+  const getUserEmail = () => {
+
+  }
+
+  useEffect(() => {
+    getUserEmail();
+  })
+
   return (
     <motion.div layout className="text-white w-full md:h-screen flex flex-col items-center justify-center relative bg-gradient-to-tl from-cloudline to-deep-wave z-0 transition-all duration-300">
       <img src="/logo-white.png" className="w-60 h-auto object-fill z-10 mb-4" />
@@ -119,6 +124,8 @@ function App() {
         <form action={handleFormSubmit} className="w-full relative" >
           <Success display={showSuccess} />
           <div className="w-full bg-white/10 p-4 flex flex-col gap-4 rounded-lg">
+            {/* USER EMAIL */}
+            <UserEmail />
             <h4 className="">Check the box for the lists you'd like to join!</h4>
             <div className="flex flex-col gap-2">
               {renderCheckboxes()}
