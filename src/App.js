@@ -1,9 +1,11 @@
 
 import './App.css';
 import { useState } from 'react';
+import { motion } from 'motion/react';
 
 import Checkbox from './components/Checkbox';
 import Spokes from './components/loaders/spokes';
+import Success from './components/formMessages/success.js';
 
 import contactUpdate from './api/contactUpdate.ts';
 
@@ -72,9 +74,12 @@ function App() {
         lists: checkboxData
       }
       const updated = await contactUpdate(configuredPayload);
-      if (updated === true) {
+      const {success} = updated;
+      if (success === true) {
         setShowSuccess(true);
       } else {
+        const {message} = updated
+        setFormError(message);
         setShowError(true);  
       }
       setLoading(false);
@@ -101,28 +106,19 @@ function App() {
   }
 
   const displayError = () => {
-    return formError !== "" && <small className="text-red-500 font-sans-serif font-bold text-left">{formError}</small>
-  }
-
-  const displaySuccess = () => {
-    return (
-      <div className={`absolute w-full h-full transition-all duration-500 bg-rcn-blue flex flex-col items-center justify-center px-8 gap-8 ${showSuccess === true ? 'visible': 'hidden'}`}>
-        <h3 className="text-4xl text-white font-bold">Thank You!</h3>
-        <p className="text-white text-xl">Thank you for taking the time to select the list(s) that you would like to receive emails for.</p>
-      </div>
-    )
+    return showError === true && <small className="text-red-500 font-sans-serif font-bold text-left">{formError}</small>
   }
 
   return (
-    <div className="text-white w-full md:h-screen flex flex-col items-center justify-center relative bg-gradient-to-tl from-cloudline to-deep-wave">
-      <img src="/logo-black.png" className="w-60 h-40 object-cover z-10" />
+    <motion.div layout className="text-white w-full md:h-screen flex flex-col items-center justify-center relative bg-gradient-to-tl from-cloudline to-deep-wave z-0 transition-all duration-300">
+      <img src="/logo-white.png" className="w-60 h-auto object-fill z-10 mb-4" />
       <div className="flex flex-col items-start justify-center w-3/4 md:w-1/2 gap-2 z-10">
         <h2 className="text-3xl font-bold self-start">Let's Stay Connected</h2>
         <p className="">We're updating our email list and want to make sure you're only getting the information you care about. Use the form below to let us know what topics you're interested in—like our newsletter, re/cap, or if you want all the updates. This helps us send you relevant content and cut down on the noise. Thanks for staying connected!</p>
         {displayError()}
         <form action={handleFormSubmit} className="w-full relative" >
-          {displaySuccess()}
-          <div className="w-full bg-white/10 p-4 rounded flex flex-col gap-4">
+          <Success display={showSuccess} />
+          <div className="w-full bg-white/10 p-4 flex flex-col gap-4 rounded-lg">
             <h4 className="">Check the box for the lists you'd like to join!</h4>
             <div className="flex flex-col gap-2">
               {renderCheckboxes()}
@@ -132,7 +128,7 @@ function App() {
         </form>
         <small className="font-thin">Or if you'd like to unsubscribe <a href="/" className="text-black font-bold hover:text-gray-800">click here</a></small>
       </div>
-    </div>
+    </motion.div>
   );
 }
 
