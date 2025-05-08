@@ -1,17 +1,37 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
+const configureTags = (lists) => {
+    let selectedLists = [];
+    let keys = Object.keys(lists);
+    let filteredKeys = keys.filter(key => key !== "allOfTheAbove");
+    if (lists["allOfTheAbove"] === true) {
+        selectedLists = [...selectedLists, ...filteredKeys];
+    } else {
+        filteredKeys.forEach(key => {
+            if (lists[key] === true) {
+                selectedLists.push(key);
+            }
+        })
+    }
+    return selectedLists;
+}
+
 export const submitForm = createAsyncThunk(
     'form/submit',
     async (userData) => {
         if (userData.email !== "") {
             let checkboxValues = Object.values(userData.checkBoxes);
             if (checkboxValues.some(value => value === true)) {
+                let configuredData = {
+                    email: userData.email,
+                    tags: configureTags(userData.checkBoxes)
+                }
                 let options = {
                     method: "POST",
                     headers: {
                         'Content-Type': 'application/json'
                     },
-                    body: JSON.stringify(userData)
+                    body: JSON.stringify(configuredData)
                 }
                 const response = await fetch('http://localhost:3001/update-preferences', options);
                 let data = response.json();
