@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
-const configureTags = (lists) => {
+const configureTags = async (lists) => {
     let selectedLists = [];
     let keys = Object.keys(lists);
     let filteredKeys = keys.filter(key => key !== "allOfTheAbove");
@@ -13,18 +13,19 @@ const configureTags = (lists) => {
             }
         })
     }
+    console.log("CONFIGURE TAGS ABOUT TO RETURN", selectedLists)
     return selectedLists;
 }
 
 export const submitForm = createAsyncThunk(
     'form/submit',
     async (userData) => {
-        if (userData.email !== "") {
+        if (userData.email !== "" && userData.email !== undefined) {
             let checkboxValues = Object.values(userData.checkBoxes);
             if (checkboxValues.some(value => value === true)) {
                 let configuredData = {
                     email: userData.email,
-                    tags: configureTags(userData.checkBoxes)
+                    tags: await configureTags(userData.checkBoxes)
                 }
                 let options = {
                     method: "POST",
@@ -33,7 +34,8 @@ export const submitForm = createAsyncThunk(
                     },
                     body: JSON.stringify(configuredData)
                 }
-                const response = await fetch('http://localhost:3001/update-preferences', options);
+                const response = await fetch('http://localhost:3000/update-preferences', options);
+                console.log("HERE IS THE RESPONSE", response);
                 let data = response.json();
                 if (data.status === 404) {
                     throw new Error(data.error);
@@ -41,9 +43,11 @@ export const submitForm = createAsyncThunk(
                     return data;
                 }
             } else {
+                // return {error: "One checkbox must be selected."}
                 throw new Error("One checkbox must be selected.")
             }
         } else {
+            // return {error: "An email must be present to associate your selection."}
             throw new Error("An email must be present to associate your selection.")
         }
     }
@@ -109,6 +113,7 @@ const formSlice = createSlice({
             }
         },
         updateEmail(state, action) {
+            console.log("Email Info from reducer", action);
             const {emailText} = action.payload;
             state.email = emailText;
         },
@@ -119,8 +124,9 @@ const formSlice = createSlice({
             state.loading = true;
         })
         .addCase(submitForm.rejected, (state, action) => {
-            const {error} = action.payload;
-            state.formError = error;
+            console.log("Here is the Action data for rejected", action);
+            const {error} = action;
+            state.formError = error.message;
             state.loading = false;
         })
         .addCase(submitForm.fulfilled, (state) => {

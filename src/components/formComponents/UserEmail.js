@@ -13,7 +13,7 @@ const UserEmail = () => {
     const [editing, setEditing] = useState(false);
 
     const emailChange = (chars) => {
-        dispatch(updateEmail(chars));
+        dispatch(updateEmail({emailText: chars}));
     }
 
     const renderEmail = () => {
