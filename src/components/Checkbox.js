@@ -4,11 +4,11 @@ import React from 'react';
 
 const Checkbox = ({info, handleClick}) => {
 
-    const {label, description, checked} = info;
+    const {label, description, value} = info;
 
     return (
         <div className="flex flex-row gap-2">
-            <input className="w-6 h-6" onChange={() => handleClick(label)} id={label} type="checkbox" value={checked} checked={checked} />
+            <input className="w-6 h-6" onChange={() => handleClick(label)} id={label} type="checkbox" value={value} checked={value} />
             <label className="font-bold" htmlFor={label}>{label}</label>
         </div>
     )

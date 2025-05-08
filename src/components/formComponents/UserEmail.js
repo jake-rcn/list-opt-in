@@ -1,18 +1,28 @@
 import { useState, useEffect } from "react";
 import { LuDelete } from "react-icons/lu";
+import { useSelector, useDispatch } from "react-redux";
 
-const UserEmail = ({email, changeFunc, clearInput}) => {
+import { updateEmail } from "../../store/slices/formSlice";
+
+const UserEmail = () => {
+
+    const email = useSelector((state) => state.form.email);
+    const pageLoaded = useSelector((state) => state.form.pageLoaded)
+    const dispatch = useDispatch();
 
     const [editing, setEditing] = useState(false);
-    const [pageLoaded, setPageLoading] = useState(false);
+
+    const emailChange = (chars) => {
+        dispatch(updateEmail(chars));
+    }
 
     const renderEmail = () => {
         if (editing) {
             return (
                 <div className="w-1/2 rounded bg-white flex flex-row justify-between px-2">
-                    <input type="email" value={email} className="text-obsidian w-3/4" onChange={(e) => changeFunc(e.target.value)} />
+                    <input type="email" value={email} className="text-obsidian w-3/4" onChange={(e) => emailChange(e.target.value)} />
                     {email !== "" && 
-                        <LuDelete onClick={clearInput} size={24} color={"#212120"} className="hover:cursor-pointer hover:opacity-70 active:opacity-100 z-10" />
+                        <LuDelete onClick={() => emailChange("")} size={24} color={"#212120"} className="hover:cursor-pointer hover:opacity-70 active:opacity-100 z-10" />
                     }
                 </div>
             )
@@ -31,7 +41,7 @@ const UserEmail = ({email, changeFunc, clearInput}) => {
         const emailParam = searchParams.get('email');
         if (emailParam) {
           console.log(emailParam);
-          changeFunc(emailParam)
+          dispatch(updateEmail(emailParam));
         }
       }
 
