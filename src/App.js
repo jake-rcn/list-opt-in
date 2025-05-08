@@ -44,8 +44,9 @@ function App() {
     }
     changeFunc(!val);
   }
-
+  
   const handleFormSubmit = async (e) => {
+    console.log("Handle Form Submit triggered");
     setFormError("");
     console.log("Form Submitted !");
     setLoading(true);

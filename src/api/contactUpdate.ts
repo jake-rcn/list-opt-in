@@ -1,6 +1,4 @@
 import axios from "axios";
-import sparkMd5 from "spark-md5";
-
 
 interface CheckboxData {
     newsletter: boolean,
@@ -11,11 +9,6 @@ interface CheckboxData {
 interface User {
     email: string,
     lists: CheckboxData
-}
-
-const getSubscriberHash = (email:string) => {
-    const trimmed = email.toLowerCase().trim();
-    return sparkMd5.hash(trimmed);
 }
 
 const configureTags = async (checkboxData: CheckboxData) : Promise<String[]> => {
@@ -35,7 +28,7 @@ const contactUpdate = async (userInfo: User) : Promise<{success: boolean,  messa
     const {email, lists} = userInfo;
     const tags = await configureTags(lists)
     try {
-        // send data to backend
+
         const userData = {
             email,
             tags
@@ -55,7 +48,6 @@ const contactUpdate = async (userInfo: User) : Promise<{success: boolean,  messa
             throw Error(response.data.error)
         }
     } catch (error) {
-        // send back boolean and errorMessage from server
         let data = {
             success: false,
             message: error
