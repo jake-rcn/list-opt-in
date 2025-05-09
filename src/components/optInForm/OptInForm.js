@@ -67,7 +67,7 @@ const OptInForm = () => {
           <Success display={success} />
           <div className="w-full bg-white/10 p-4 flex flex-col gap-4 rounded-lg">
             <UserEmail />
-            <h4 className="">Check the box for the lists you'd like to join!</h4>
+            <h4 className="font-bold">Check the box for the lists you'd like to join!</h4>
             <div className="flex flex-col gap-2">
               {renderCheckboxes()}
             </div>

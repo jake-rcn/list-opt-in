@@ -17,6 +17,7 @@ const UserEmail = () => {
     }
 
     const renderEmail = () => {
+
         if (editing) {
             return (
                 <div className="w-1/2 rounded bg-white flex flex-row justify-between px-2">
@@ -28,7 +29,7 @@ const UserEmail = () => {
             )
         } else {
             return (
-                <div className="w-1/2 flex flex-row justify-start gap-8 items-end ">
+                <div className="flex flex-row justify-start gap-8 items-end ">
                     <p className="text-sm">{email}</p>
                     <div onClick={() => setEditing(true)} className="text-deep-wave font-bold hover:cursor-pointer hover:text-blue-800 transition-all duration-300 text-xs">Not you? Change</div>
                 </div>
@@ -41,19 +42,20 @@ const UserEmail = () => {
         const emailParam = searchParams.get('email');
         if (emailParam) {
           console.log(emailParam);
-          dispatch(updateEmail(emailParam));
+          dispatch(updateEmail({emailText: emailParam}));
         }
       }
 
     useEffect(() => {
         if (pageLoaded === false) {
+            console.log("Log before get email param call")
             getEmailParam();
         }
     }, [pageLoaded])
 
     return (
         <div className="flex flex-col">
-            <p className="">Email</p>
+            <p className="font-bold">Email</p>
             {renderEmail()}
         </div>
     )
