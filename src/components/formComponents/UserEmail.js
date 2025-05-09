@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { LuDelete } from "react-icons/lu";
 import { useSelector, useDispatch } from "react-redux";
+import { motion } from "motion/react";
 
 import { updateEmail } from "../../store/slices/formSlice";
 
@@ -13,26 +14,34 @@ const UserEmail = () => {
     const [editing, setEditing] = useState(false);
 
     const emailChange = (chars) => {
-        dispatch(updateEmail({emailText: chars}));
+        dispatch(updateEmail({emailText: chars}));  
     }
 
     const renderEmail = () => {
 
         if (editing) {
             return (
-                <div className="w-1/2 rounded bg-white flex flex-row justify-between px-2">
+                <motion.div className="w-1/2 rounded bg-white flex flex-row justify-between items-center px-2"
+                    initial={{opacity: 0, y: -50}}
+                    animate={{opacity: 1, y: 0}}
+                    transition={{delay: 1}}
+                >
                     <input type="email" value={email} className="text-obsidian w-3/4" onChange={(e) => emailChange(e.target.value)} />
                     {email !== "" && 
-                        <LuDelete onClick={() => emailChange("")} size={24} color={"#212120"} className="hover:cursor-pointer hover:opacity-70 active:opacity-100 z-10" />
+                        <LuDelete onClick={() => emailChange("")} size={20} color={"#212120"} className="hover:cursor-pointer hover:opacity-70 active:opacity-100" />
                     }
-                </div>
+                </motion.div>
             )
         } else {
             return (
-                <div className="flex flex-row justify-start gap-8 items-end ">
+                <motion.div className="flex flex-row justify-start gap-8 items-end "
+                    initial={{opacity: 0, y: -50}}
+                    animate={{opacity: 1, y: 0}}
+                    transition={{delay: 1.1}}
+                >
                     <p className="text-sm">{email}</p>
                     <div onClick={() => setEditing(true)} className="text-deep-wave font-bold hover:cursor-pointer hover:text-blue-800 transition-all duration-300 text-xs">Not you? Change</div>
-                </div>
+                </motion.div>
             )
         }
     }
@@ -43,6 +52,8 @@ const UserEmail = () => {
         if (emailParam) {
           console.log(emailParam);
           dispatch(updateEmail({emailText: emailParam}));
+        } else {
+            setEditing(true);
         }
       }
 
@@ -55,7 +66,13 @@ const UserEmail = () => {
 
     return (
         <div className="flex flex-col">
-            <p className="font-bold">Email</p>
+            <motion.p className="font-bold"
+                initial={{opacity: 0, y: -50}}
+                animate={{opacity: 1, y: 0}}
+                transition={{delay: 1}}
+            >
+                Email
+            </motion.p>
             {renderEmail()}
         </div>
     )

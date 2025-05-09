@@ -1,4 +1,5 @@
 import { useSelector, useDispatch } from 'react-redux';
+import { motion } from 'motion/react';
 
 import Success from '../formMessages/success.js';
 import UserEmail from '../formComponents/UserEmail.js';
@@ -35,7 +36,7 @@ const OptInForm = () => {
             {label: "Events", description: "Stay in the loop for all our events and updates to the events.",  value: events},
             {label: "All of the above", description: "", value: allOfTheAbove},
         ];
-        return checkboxes.map((info, i) => <Checkbox handleClick={checkboxHandler} key={`${i}-${info.label}`} info={info} />)
+        return checkboxes.map((info, i) => <Checkbox index={i} handleClick={checkboxHandler} key={`${i}-${info.label}`} info={info} />)
     }
 
     const handleTap = (list) => {
@@ -65,14 +66,30 @@ const OptInForm = () => {
     return (
         <form action={handleFormSubmit} className="w-full relative" >
           <Success display={success} />
-          <div className="w-full bg-white/10 p-4 flex flex-col gap-4 rounded-lg">
+          <motion.div className="w-full bg-white/10 p-4 flex flex-col gap-4 rounded-lg"
+            initial={{opacity: 0}}
+            animate={{opacity: 1}}
+            transition={{delay: 0.5, duration: 0.5}}
+          >
             <UserEmail />
-            <h4 className="font-bold">Check the box for the lists you'd like to join!</h4>
+            <motion.h4 className="font-bold"
+                initial={{opacity: 0, y: -50}}
+                animate={{opacity: 1, y: 0}}
+                transition={{delay: 1.2}}
+            >
+                Check the box for the lists you'd like to join!
+            </motion.h4>
             <div className="flex flex-col gap-2">
               {renderCheckboxes()}
             </div>
-            <button type="submit" className="bg-white/70 rounded w-full transition-all duration-300 hover:bg-white text-xl font-bold flex items-center justify-center text-rcn-blue py-1">{presentButtonText()}</button>
-          </div>
+            <motion.button type="submit" className="bg-white/70 rounded w-full transition-all duration-300 hover:bg-white text-xl font-bold flex items-center justify-center text-rcn-blue py-1"
+                initial={{opacity: 0}}
+                animate={{opacity: 1}}
+                transition={{delay: 2}}
+            >
+                {presentButtonText()}
+            </motion.button>
+          </motion.div>
         </form>
     )
 }

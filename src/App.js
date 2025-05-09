@@ -49,7 +49,13 @@ function App() {
         <Header />
         {displayError()}
         <OptInForm />
-        <small className="font-thin">Or if you'd like to unsubscribe <a href="/" className="text-black font-bold hover:text-gray-800">click here</a></small>
+        <motion.small className="font-thin"
+          initial={{opacity: 0}}
+          animate={{opacity: 1}}
+          transition={{delay: 2}}
+        >
+          Or if you'd like to unsubscribe <a href="/" className="text-black font-bold hover:text-gray-800">click here</a>
+        </motion.small>
       </div>
     </motion.div>
   );
