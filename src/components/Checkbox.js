@@ -6,9 +6,7 @@ const Checkbox = ({info, handleClick, index}) => {
     const {label, description, value} = info;
 
     const dynamicDelay = () => {
-        console.log("Here is the index:", index)
         let delayString = `1.${3 + index}`;
-        console.log("DELAY STRING", delayString)
         return Number(delayString)
     }
 
