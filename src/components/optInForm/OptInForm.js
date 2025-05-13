@@ -65,7 +65,7 @@ const OptInForm = () => {
     const successMessage = "Thank you for taking the time to select the list(s) that you would like to receive emails for. Look out for a confirmation email. We appreciate you being a part of our community!"
 
     return (
-        <form action={handleFormSubmit} className="w-full relative" >
+        <form action={handleFormSubmit} className="w-full h-full relative" >
           <Success display={success} title="Thank You!" message={successMessage} customStyles={"bg-rcn-blue"} />
           <motion.div className="w-full bg-white/10 p-4 flex flex-col gap-4 rounded-lg"
             initial={{opacity: 0}}
