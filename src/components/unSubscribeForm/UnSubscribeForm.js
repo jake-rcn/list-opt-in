@@ -1,6 +1,6 @@
 import UserEmail from "../formComponents/UserEmail";
 
-const UnSubscribeForm = () => {
+const UnsubscribeForm = () => {
 
     return (
         <form className="rounded w-full relative">
@@ -9,4 +9,4 @@ const UnSubscribeForm = () => {
     )
 };
 
-export default UnSubscribeForm;
+export default UnsubscribeForm;

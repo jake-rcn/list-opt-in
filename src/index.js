@@ -3,22 +3,28 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
-import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { Provider } from 'react-redux';
 import store from './store';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { motion } from 'motion/react';
+
+import App from './App';
+import Unsubscribe from './pages/Unsubscribe';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
+    <motion.div layout className="text-white w-full md:h-screen flex flex-col items-center justify-center relative bg-gradient-to-tl from-cloudline to-deep-wave z-0 transition-all duration-300">
     <Provider store={store}>
       <Router>
         <Routes>
           <Route path="/" element={<App />} />
+          <Route path="/unsubscribe" element={<Unsubscribe />} />
         </Routes>
       </Router>
     </Provider>
+    </motion.div>
   </React.StrictMode>
 );
 
