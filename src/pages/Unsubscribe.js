@@ -18,7 +18,7 @@ const UnSubscribe = () => {
     }
 
     const modal = showModal && (
-        <ConfirmationModal />
+        <ConfirmationModal closeModal={() => setShowModal(false)} />
     )
 
     return (
