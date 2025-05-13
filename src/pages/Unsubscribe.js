@@ -3,7 +3,7 @@ import { useState } from "react";
 
 import ConfirmationModal from "../components/unSubscribeForm/confirmationModal/ConfirmationModal";
 
-import UnSubscribeForm from "../components/unSubscribeForm/UnSubscribeForm"
+import UnSubscribeForm from "../components/unSubscribeForm/UnSubscribeForm";
 
 const UnSubscribe = () => {
 
