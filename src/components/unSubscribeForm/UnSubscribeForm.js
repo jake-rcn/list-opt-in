@@ -22,6 +22,7 @@ const UnSubscribeForm = ({toggleModal}) => {
             <form action={toggleModal} className="w-full flex flex-col gap-4 ">
                 <UserEmail />
                 <motion.button
+                    type={'submit'}
                     className={`w-full rounded bg-white text-rcn-blue py-1 font-bold ${emailVerified() ? 'bg-opacity-100': "bg-opacity-20"} transiton-all duration-300`}
                     initial={{opacity: 0, y: 50}}
                     animate={{opacity: 1, y: 0}}
