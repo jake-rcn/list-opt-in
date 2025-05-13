@@ -1,16 +1,22 @@
 import { motion } from "motion/react";
 import { LuX } from "react-icons/lu";
 import { useState } from "react";
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+
+import { unsubscribeUser } from '../../../store/slices/unsubscribeSlice.js';
 
 import Success from "../../formMessages/success";
 
 const ConfirmationModal = ({closeModal}) => {
 
-    const [showSuccess, setShowSuccess] = useState(false);
+    const success = useSelector(state => state.unsubscribe.success);
+    const email = useSelector(state => state.form.email);
+    const dispatch = useDispatch();
 
     const unsubscribe = () => {
-        console.log("Unsubscribe confirmed!");
-        
+        console.log("Unsubscribe confirmed!", email);
+        dispatch(unsubscribeUser(email))
     }
 
     const confirmationMessage = "You have been unsubscribed. We’ll miss you! If you change your mind, you can re-subscribe anytime."
@@ -22,8 +28,8 @@ const ConfirmationModal = ({closeModal}) => {
             animate={{opacity: 1, scale: 1}}
             >
                 <form action={unsubscribe} className="w-full h-full flex items-center justify-center ">
-                    {showSuccess ? 
-                        <Success display={showSuccess} title="" message={confirmationMessage} customStyles={"bg-obsidian"} />
+                    {success ? 
+                        <Success display={success} title="" message={confirmationMessage} customStyles={"bg-obsidian"} />
                         :
                         <motion.div 
                             className="flex flex-col items-start justify-center gap-4 rounded w-1/2 bg-obsidian py-8 px-4 relative"

@@ -13,7 +13,6 @@ const configureTags = async (lists) => {
             }
         })
     }
-    console.log("CONFIGURE TAGS ABOUT TO RETURN", selectedLists)
     return selectedLists;
 }
 
@@ -35,7 +34,6 @@ export const submitForm = createAsyncThunk(
                     body: JSON.stringify(configuredData)
                 }
                 const response = await fetch('http://localhost:3000/update-preferences', options);
-                console.log("HERE IS THE RESPONSE", response);
                 let data = response.json();
                 if (data.status === 404) {
                     throw new Error(data.error);
@@ -43,11 +41,9 @@ export const submitForm = createAsyncThunk(
                     return data;
                 }
             } else {
-                // return {error: "One checkbox must be selected."}
                 throw new Error("One checkbox must be selected.")
             }
         } else {
-            // return {error: "An email must be present to associate your selection."}
             throw new Error("An email must be present to associate your selection.")
         }
     }
