@@ -58,9 +58,10 @@ const UserEmail = () => {
       }
 
     useEffect(() => {
-        if (pageLoaded === false) {
-            console.log("Log before get email param call")
-            getEmailParam();
+        if (email === "") {
+            if (pageLoaded === false) {
+                getEmailParam();
+            }
         }
     }, [pageLoaded])
 

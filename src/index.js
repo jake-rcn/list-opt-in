@@ -10,7 +10,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { motion } from 'motion/react';
 
 import App from './App';
-import Unsubscribe from './pages/Unsubscribe';
+import UnSubscribe from './pages/UnSubscribe';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -20,7 +20,7 @@ root.render(
       <Router>
         <Routes>
           <Route path="/" element={<App />} />
-          <Route path="/unsubscribe" element={<Unsubscribe />} />
+          <Route path="/unsubscribe" element={<UnSubscribe />} />
         </Routes>
       </Router>
     </Provider>
