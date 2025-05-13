@@ -11,7 +11,7 @@ export const unsubscribeUser = createAsyncThunk(
     async (email) => {
         let url = "http://localhost:3000/unsubscribe";
         let options = {
-            method: "PATCH",
+            method: "POST",
             headers: {
                 "Content-Type": "application/json",
             },
