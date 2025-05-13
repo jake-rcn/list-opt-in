@@ -1,19 +1,18 @@
 import { motion } from "motion/react";
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 
 const Success = ({display}) => {
 
     const [timer, setTimer] = useState(10);
-    const navigate = useNavigate()
-
 
     const timerInterval = setInterval(() => {
-        if (timer > 0) {
-            setTimer(timer - 1);
-        } else {
-            clearInterval(timerInterval);
-            window.location.href = "https://realitycapturenetwork.com";
+        if (display === true) {
+            if (timer > 0) {
+                setTimer(timer - 1);
+            } else {
+                clearInterval(timerInterval);
+                window.location.href = "https://realitycapturenetwork.com";
+            }
         }
     }, 1000);
 

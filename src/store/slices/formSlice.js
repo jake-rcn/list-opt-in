@@ -63,7 +63,7 @@ const initialState = {
     },
     loading: false,
     formError: "",
-    success: true,
+    success: false,
     pageLoaded: false,
 }
 

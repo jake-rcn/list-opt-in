@@ -25,7 +25,6 @@ const OptInForm = () => {
             email,
             checkBoxes
         }
-        console.log("Here is the user data from handle form submit", userData);
         dispatch(submitForm(userData));
     }
 
