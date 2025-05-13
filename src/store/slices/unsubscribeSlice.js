@@ -17,10 +17,10 @@ export const unsubscribeUser = createAsyncThunk(
             },
             body: JSON.stringify({email: email})
         }
-        const response = fetch(url, options);
-        
-        if (response.ok) {
-            const data = (await response).json()
+        const response = await fetch(url, options);
+        const data = await response.json()
+        console.log("Data.Success", data.success);
+        if (data.success === true) {
             return data;
         } else {
             throw new Error("There was an error unsubscribing the user.")
@@ -45,6 +45,7 @@ const unsubscribeSlice = createSlice({
             state.error = error.message;
         })
         builder.addCase(unsubscribeUser.fulfilled, state => {
+            console.log("UNSUBSCRIBED SUCCESS");
             state.success = true;
             state.loading = false;
             state.error = "";
