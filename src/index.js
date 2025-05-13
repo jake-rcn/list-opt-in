@@ -10,7 +10,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { motion } from 'motion/react';
 
 import App from './App';
-import UnSubscribe from './pages/UnSubscribe';
+import UnSubscribe from './pages/Unsubscribe';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
