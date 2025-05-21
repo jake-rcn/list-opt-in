@@ -10,12 +10,12 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { motion } from 'motion/react';
 
 import App from './App';
-import UnSubscribe from './pages/Unsubscribe.js';
+import UnSubscribe from './pages/UnSubscribe.js';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <motion.div layout className="text-white w-full md:h-screen flex flex-col items-center justify-center relative bg-gradient-to-tl from-cloudline to-deep-wave z-0 transition-all duration-300">
+    <motion.div layout className="text-white w-full h-screen flex flex-col items-center justify-center relative bg-gradient-to-tl from-cloudline to-deep-wave z-0 transition-all duration-300">
     <Provider store={store}>
       <Router>
         <Routes>
