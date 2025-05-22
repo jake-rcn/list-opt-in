@@ -1,6 +1,5 @@
 
 import './App.css';
-import { useState } from 'react';
 import { motion } from 'motion/react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
@@ -10,7 +9,6 @@ import OptInForm from './components/optInForm/OptInForm.js';
 
 function App() {
 
-  const [isUnsubscribing, setIsUnsubscribing] = useState(false);
 
   const formError = useSelector((state) => state.form.formError)
 
