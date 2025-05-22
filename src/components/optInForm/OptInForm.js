@@ -34,7 +34,7 @@ const OptInForm = () => {
             {label: "Newsletter", description: "This includes our weekly newsletter, events, and podcast updates.", value: newsletter},
             {label: "Re/Cap", description: "This includes our weekly Re/Cap. It goes over innovations in the built world in a casual, humored, technical way and we highlight a historical error that could have been avoided or fixed with current technology.", value: recap},
             {label: "Events", description: "Stay in the loop for all our events and updates to the events.",  value: events},
-            {label: "Podcasts", description: "Stay in the loop for all our podcast episodes",  value: events},
+            {label: "Podcasts", description: "Stay in the loop for all our podcast episodes",  value: podcasts},
             {label: "All of the above", description: "", value: allOfTheAbove},
         ];
         return checkboxes.map((info, i) => <Checkbox index={i} handleClick={checkboxHandler} key={`${i}-${info.label}`} info={info} />)
@@ -45,6 +45,7 @@ const OptInForm = () => {
     }
 
     const checkboxHandler = (label) => {
+      console.log("Label tapped", label)
         const checkboxCypher = {
           "Newsletter": {val: newsletter, changeFunc:() => handleTap('newsletter')},
           "Re/Cap": {val: recap, changeFunc:() => handleTap('recap')},

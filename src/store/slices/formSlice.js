@@ -55,7 +55,8 @@ const initialState = {
         newsletter: false,
         recap: false,
         events: false,
-        allOfTheAbove: false,
+        podcasts: false,
+        allOfTheAbove: true,
     },
     loading: false,
     formError: "",
@@ -78,14 +79,12 @@ const formSlice = createSlice({
             const {payload} = action;
             const {checkbox} = payload
             if (checkbox !== "allOfTheAbove") {
-                console.log("All of the above not clicked!")
                 state.checkBoxes[checkbox] = !state.checkBoxes[checkbox];
+                console.log(`Checkbox: ${checkbox}, value: ${state.checkBoxes[checkbox]}`);
                 if (state.checkBoxes["allOfTheAbove"] === true) {
                     state.checkBoxes["allOfTheAbove"] = false;
                 } else if (state.checkBoxes["allOfTheAbove"] === false) {
-                    console.log("All of the above is false and not clicked!!!")
                     if (checkForAllIndividualTrue(state.checkBoxes) === true) {
-                        console.log("All boxes are true!!");
                         state.checkBoxes["allOfTheAbove"] = true;
                         let checkboxKeys = Object.keys(state.checkBoxes);
                         checkboxKeys.forEach(key => {
