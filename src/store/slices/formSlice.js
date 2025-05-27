@@ -33,7 +33,7 @@ export const submitForm = createAsyncThunk(
                     },
                     body: JSON.stringify(configuredData)
                 }
-                const response = await fetch('http://localhost:3000/update-preferences', options);
+                const response = await fetch('https://mailchimp-integration-sigma.vercel.app/update-preferences', options);
                 let data = response.json();
                 if (data.status === 404) {
                     throw new Error(data.error);
@@ -48,6 +48,7 @@ export const submitForm = createAsyncThunk(
         }
     }
 )
+
 
 const initialState = {
     email: "",

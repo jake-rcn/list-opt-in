@@ -9,7 +9,7 @@ const initialState = {
 export const unsubscribeUser = createAsyncThunk(
     'user/unsubscribe',
     async (email) => {
-        let url = "http://localhost:3000/unsubscribe";
+        let url = "https://mailchimp-integration-sigma.vercel.app/unsubscribe";
         let options = {
             method: "POST",
             headers: {
