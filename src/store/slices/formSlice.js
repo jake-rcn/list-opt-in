@@ -35,6 +35,7 @@ export const submitForm = createAsyncThunk(
                 }
                 const response = await fetch('https://mailchimp-integration-sigma.vercel.app/update-preferences', options);
                 let data = response.json();
+                console.log("Data from the API", data);
                 if (data.status === 404) {
                     throw new Error(data.error);
                 } else {

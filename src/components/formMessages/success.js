@@ -2,31 +2,23 @@ import { motion } from "motion/react";
 import { useEffect, useState } from "react";
 
 const Success = ({display, title="", message, customStyles={}}) => {
-
     console.log("Success Shown!");
-
     const [timer, setTimer] = useState(10);
 
-    const timerInterval = setInterval(() => {
-        if (display === true) {
+    useEffect(() => {
+        if (!display) return;
+
+        const timerInterval = setInterval(() => {
             if (timer > 0) {
-                setTimer(timer - 1);
+                setTimer(prevTimer => prevTimer - 1);
             } else {
                 clearInterval(timerInterval);
                 window.location.href = "https://realitycapturenetwork.com";
             }
-        }
-    }, 1000);
+        }, 1000);
 
-    useEffect(() => {
-        if (timer <= 0) {
-            console.log("Timer should stop");
-            clearInterval(timerInterval);
-        }
-        return () => {
-            clearInterval(timerInterval);
-        }
-    }, [display, timer])
+        return () => clearInterval(timerInterval);
+    }, [display, timer]);
 
     return display && (
         // <motion.div
